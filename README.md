@@ -2,6 +2,14 @@
 
 The requirements-doc-tester can be used to check if a csv requirements doc is valid.
 
+# Running the program
+
+Run the program using the following command `py csvParser2.py`. After doing this the program will prompt you to type in the files name. The file must be in the current directory as the csvParser2 file. 
+
+    What are the file names you wish to test?
+    > someFileName.csv
+
+The program will run and out put the result once it is complete.
 
 # The things it tests for
 
@@ -23,11 +31,3 @@ The requirements-doc-tester can be used to check if a csv requirements doc is va
 	- The time estimate must be some number not a string
 	- Checks to see if any time estimites were given to categories that cannot have them. [Within the settings.json file]
 
-## Running the program
-
-Run the program using the following command `py csvParser2.py`. After doing this the program will prompt you to type in the files name. The file must be in the current directory as the csvParser2 file. 
-
-    What are the file names you wish to test?
-    > someFileName.csv
-
-The program will run and out put the result once it is complete.
