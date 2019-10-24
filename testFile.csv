@@ -1,0 +1,8 @@
+ReqID,Category,User,Requirement,Dependencies,Priority,TimeEstimate
+1,must,The user,The user must be able to log in securly,2,10,2
+2,should,The user,The user should be able to change there username,1,30,1
+3,should,The user,The user shold be able to change their password,,30,0.5
+4,must,The user,The user must be able to delete their account.,8,30,someText
+6,could,The user,The user could be able to register a new account,7,10,
+6,wont,The user,The user could be able to register a new account,,,2
+7,wont,The user,The user could be able to register a new account,,,
