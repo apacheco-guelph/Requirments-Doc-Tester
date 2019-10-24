@@ -1,0 +1,53 @@
+{
+    "GrammarBotClientF":"KS9C5N3Y",
+    "Headers": [
+      "ReqID",
+      "Category",
+      "User",
+      "Requirement",
+      "Dependencies",
+      "Priority",
+      "TimeEstimate"
+    ],
+    "Category": {
+      "must": {
+        "Dependencies": [
+          "must"
+        ],
+        "Priority": [
+          10,
+          20
+        ],
+        "TimeEstimate":true
+      },
+      "should": {
+        "Dependencies": [
+          "must",
+          "should"
+        ],
+        "Priority": [
+          20,
+          30,
+          40
+        ],
+        "TimeEstimate":true
+      },
+      "could": {
+        "Dependencies": [
+          "must",
+          "should",
+          "could"
+        ],
+        "Priority": [
+          40,
+          50
+        ],
+        "TimeEstimate":true
+      },
+      "wont": {
+        "Dependencies": [],
+        "Priority": [],
+        "TimeEstimate":false
+      }
+    }
+  }
