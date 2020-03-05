@@ -1,0 +1,75 @@
+{
+  "GeneralSettings": {
+    "GrammarBotClient": "",
+    "EveryOtherLine": ""
+  },
+
+  "TimeEstimateSettings": {
+    "TimeEstimateFloat": true,
+    "OnlyNumeric": true,
+    "TimeEstimateMin": 0.5
+  },
+
+  "HeadersSettings" : {
+    "HeadersOrdered": true,
+    "HeadersConnect": {
+      "ReqID" : "ReqID",
+      "Cat" : "Category",
+      "User" : "User",
+      "ReqDes" : "Requirement",
+      "Dep" : "Dependencies",
+      "Pri" : "Priority",
+      "Time" : "TimeEstimate"
+    }
+  },
+
+  "PrioritySettings" : {
+    "PriorityStatic": true, 
+    "PriorityRange" : [10,20,30,40,50],
+    "PriorityDepRate" : true,
+    "PriorityCatConnect" : {
+      "must" : [10,20],
+      "should" : [20,30,40],
+      "could" : [40,50],
+      "wont" : []
+    }
+  }, 
+
+  "CatSettings" : {
+
+    "CategoriesCaseSensitive": true,
+
+    "CategoryTypes" : {
+      "must" : "must",
+      "should" : "should",
+      "could" : "could",
+      "wont" : "wont"
+    },
+
+    "must": {
+      "Dependencies": [
+        "must"
+      ],
+      "TimeEstimate":true
+    },
+    "should": {
+      "Dependencies": [
+        "must",
+        "should"
+      ],
+      "TimeEstimate":true
+    },
+    "could": {
+      "Dependencies": [
+        "must",
+        "should",
+        "could"
+      ],
+      "TimeEstimate":true
+    },
+    "wont": {
+      "Dependencies": [],
+      "TimeEstimate":false
+    }
+  }
+}
