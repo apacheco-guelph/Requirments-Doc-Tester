@@ -1,7 +1,7 @@
 {
   "GeneralSettings": {
     "GrammarBotClient": "",
-    "EveryOtherLine": ""
+    "EveryOtherLine": false
   },
 
   "TimeEstimateSettings": {
@@ -12,10 +12,19 @@
 
   "HeadersSettings" : {
     "HeadersOrdered": true,
+    "HeadersOrder": [
+      "ReqID",
+      "Category",
+      "User",
+      "Requirement",
+      "Dependencies",
+      "Priority",
+      "TimeEstimate"
+    ],
     "HeadersConnect": {
       "ReqID" : "ReqID",
-      "Cat" : "Category",
-      "User" : "User",
+      "Cat" : "Categor",
+      "User" : "Use",
       "ReqDes" : "Requirement",
       "Dep" : "Dependencies",
       "Pri" : "Priority",
