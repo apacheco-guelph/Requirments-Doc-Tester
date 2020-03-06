@@ -4,6 +4,10 @@
     "EveryOtherLine": false
   },
 
+  "ReqIDSettings": {
+    "OnlyNumeric": true
+  },
+
   "TimeEstimateSettings": {
     "TimeEstimateFloat": true,
     "OnlyNumeric": true,
@@ -23,8 +27,8 @@
     ],
     "HeadersConnect": {
       "ReqID" : "ReqID",
-      "Cat" : "Categor",
-      "User" : "Use",
+      "Cat" : "Category",
+      "User" : "User",
       "ReqDes" : "Requirement",
       "Dep" : "Dependencies",
       "Pri" : "Priority",

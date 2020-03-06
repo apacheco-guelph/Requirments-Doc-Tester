@@ -1,12 +1,25 @@
-import settingsLoader as config
+import settingsLoader as settings
+import configFunctionsLoader as config
+
+def OnlyNumeric(string):
+    
+    if string == "hello":
+        print("Shamlom")
+    else:
+        print("goodbye")
 
 def main():
-    configObject = config.loadSettingsFile('settingsNew.json')
+    settingsObject = settings.loadSettingsFile('settingsNew.json')
     
-    #config.getGeneralSettings(configObject)
-    #print(config.isTimeEstimateFloat(configObject))
+    #settings.getGeneralSettings(settingsObject)
+    #print(settings.isTimeEstimateFloat(settingsObject))
     array = ["ReqID","Category","Usr","Requirement","Dependencies","Priority","TimeEstimate"]
-    jsonToCatch = config.isHeadingCorrect(configObject,array)
-    print(jsonToCatch)
+    jsonToCatch = settings.isHeadingCorrect(settingsObject,array)
+    #print(jsonToCatch)
+
+    configObject = config.loadConfigFunctionsFile('configFunctions.json')
+    print(config.getFunctionObject(configObject,"ReqID","OnlyNumeric"))
+
+    #globals()[config.getFunctionObjectName(reqFunctionObject)]("hello")
 
 main()
