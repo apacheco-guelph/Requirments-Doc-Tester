@@ -16,15 +16,6 @@
 
   "HeadersSettings" : {
     "HeadersOrdered": true,
-    "HeadersOrder": [
-      "ReqID",
-      "Category",
-      "User",
-      "Requirement",
-      "Dependencies",
-      "Priority",
-      "TimeEstimate"
-    ],
     "HeadersConnect": {
       "ReqID" : "ReqID",
       "Cat" : "Category",

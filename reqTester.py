@@ -8,7 +8,7 @@ class requirementsFile:
         self.contentList = contentList
 
 class content:
-    def __init__(self, ReqID, Cat, User, ReqDes, Dep, Pri, Time)
+    def __init__(self, ReqID, Cat, User, ReqDes, Dep, Pri, Time):
         self.ReqID = ReqID
         self.Cat = Cat
         self.User = User
@@ -68,8 +68,15 @@ def checkIt(configObject, functionsObject, reqFile, lineNumber):
 
 def configureRequirementsFile(reqFile, configObject):
     Order = configObject.get("HeadersSettings").get("HeadersOrder")
-    for Row in reqFile
 
+def getOrderOfHeaders(reqFile, configObject):
+    #TODO - add error handling for if the headers are not all there and or there is some error
+    headersOrder = []
+    for headers in reqFile[0]:
+        for headersConnected in configObject.get("HeadersSettings").get("HeadersConnect"):
+            if headers == configObject.get("HeadersSettings").get("HeadersConnect").get(headersConnected):
+                headersOrder.append(str(headersConnected))
+    return headersOrder
 
 def main():
     configFilename = getSettingFile()
@@ -81,6 +88,12 @@ def main():
     functionsObject = config.loadSettingsFile('configFunctions.json')
     print(config.getSettingsFunction(functionsObject,"OnlyNumeric"))
     #checkIt(configObject,functionsObject,reqFile,0)
+
+    headersOrder = getOrderOfHeaders(reqFile,configObject)
+    
+    for i in headersOrder:
+        print(i + ",")
+    
 
 
 

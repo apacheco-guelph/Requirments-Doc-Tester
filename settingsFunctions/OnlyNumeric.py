@@ -1,0 +1,3 @@
+
+def OnlyNumeric(reqFile, catToTest):
+    

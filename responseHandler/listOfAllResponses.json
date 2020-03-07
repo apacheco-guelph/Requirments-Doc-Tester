@@ -1,0 +1,14 @@
+{
+    "400" : {
+       "status" : "Success",
+       "message" : "" ,
+       "code" : "400"
+
+    },
+    
+    "100" : {
+        "status" : "Failure",
+        "message" : "Expected to only be Numeric",
+        "code" : "100"
+    }
+}
