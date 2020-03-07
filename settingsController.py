@@ -77,5 +77,4 @@ def getSettingsFunction(settings, settingsName):
         return settingsToReturn
     except:
         return ""
-
-def OnlyNumeric():    
+  

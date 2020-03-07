@@ -1,3 +1,6 @@
 {
-    "OnlyNumeric": "OnlyNumeric"
+    "OnlyNumeric": {
+        "functionName":"OnlyNumeric",
+        "typeSettings": "Bool"
+    }
 }
