@@ -5,7 +5,15 @@ class objectify(object):
     def __init__(self, settings):
 	    self.__dict__ = json.loads(settings)
 
-#def runFunctionSettings(requirementsFile, functions):
+def loadSettingsFile(filename):
+    settings = {}
+
+    with open(filename) as json_file:
+        settings = json.load(json_file)
+
+    settingsObject = objectify(json.dumps(settings))
+    
+    return settings
 
 
 def readSettingsFile(filename):
@@ -18,11 +26,15 @@ def readSettingsFile(filename):
     
     return settings
 
-#def getConfigSettings(settings, configFile):
-    
+def runSettingsFunction(nameOfSettingsFunction,RequirementsFile,RowToTest):
+    getattr((globals()[nameOfSettingsFunction]),nameOfSettingsFunction)(RequirementsFile,RowToTest)
+
+def getConfigSettings(configFile, settings):
+    return configFile.get(settings).get("functionName")
 
 def parseSettingsFile(settingsFile, configFile):
+    arrayOfFunctionNames = []
     for setting in settingsFile.get('ReqIDSettings'):
-        getConfigSettings(setting,configFile)
+        arrayOfFunctionNames.append(getConfigSettings(configFile,setting))
 
-    print(settingsFile.get('ReqIDSettings'))
+    return arrayOfFunctionNames

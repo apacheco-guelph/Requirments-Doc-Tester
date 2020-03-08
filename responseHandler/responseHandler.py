@@ -13,3 +13,4 @@ def readListOfAllResponses():
 def getResponseFromCode(code):
     listOfAllResponses = readListOfAllResponses()
     print(listOfAllResponses.get(code))
+    return listOfAllResponses.get(code)

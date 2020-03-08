@@ -1,5 +1,5 @@
 import json, csv
-import settingsController as config
+import settingsController1 as config
 import configFunctionsLoader as listOfFunctions
 
 class requirementsFile:
@@ -66,8 +66,14 @@ def checkIt(configObject, functionsObject, reqFile, lineNumber):
         for lowerLayerSettings in configObject.get(topLayerSettings):
             print("\t"+lowerLayerSettings)
 
-def configureRequirementsFile(reqFile, configObject):
-    Order = configObject.get("HeadersSettings").get("HeadersOrder")
+
+def getRowNumberOfHeader(headersOrder, headerToFind):
+    i = 0
+    for header in headersOrder:
+        if headerToFind == header:
+            return i
+        i = i + 1
+    return -1
 
 def getOrderOfHeaders(reqFile, configObject):
     #TODO - add error handling for if the headers are not all there and or there is some error
@@ -86,14 +92,20 @@ def main():
     reqFile = readCSV(reqFilename)
 
     functionsObject = config.loadSettingsFile('configFunctions.json')
-    print(config.getSettingsFunction(functionsObject,"OnlyNumeric"))
     #checkIt(configObject,functionsObject,reqFile,0)
 
     headersOrder = getOrderOfHeaders(reqFile,configObject)
+    print(getRowNumberOfHeader(headersOrder,"Time"))
     
     for i in headersOrder:
         print(i + ",")
-    
+
+    #print(config.getConfigSettings(functionsObject,"OnlyNumeric"))
+    arrayOfFunctionNames = config.parseSettingsFile(configObject,functionsObject)
+
+    for func in arrayOfFunctionNames:
+        config.runSettingsFunction(func,reqFile,"ReqID")
+
 
 
 
