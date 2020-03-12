@@ -1,0 +1,10 @@
+{
+    "GeneralSettings": {
+      "GrammarBotClient": "",
+      "EveryOtherLine": false
+    },
+  
+    "ReqIDSettings": {
+      "OnlyNumeric": true
+    }
+}

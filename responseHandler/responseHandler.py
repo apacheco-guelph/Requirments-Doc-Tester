@@ -1,5 +1,26 @@
-
 import json
+
+def cleanSettingsError(arrayOfSettings):
+    generalToUpdate = {}
+    
+    for settings in arrayOfSettings:
+        arrayToUpdate = []
+        
+        for toClean in arrayOfSettings.get(settings):
+            try:
+                objectToAdd = {}
+                objectToAdd['response'] = getResponseFromCode(toClean.get('errorCode'))
+                toString = str(objectToAdd)
+                arrayToUpdate.append(toString)          
+            except:
+                arrayToUpdate.append(str(toClean))
+                pass
+
+        stringATU = str(arrayToUpdate).replace("\"","")
+        
+        generalToUpdate[settings] = stringATU
+    
+    return generalToUpdate
 
 def readListOfAllResponses():
     responses = {}
@@ -12,5 +33,4 @@ def readListOfAllResponses():
 
 def getResponseFromCode(code):
     listOfAllResponses = readListOfAllResponses()
-    print(listOfAllResponses.get(code))
-    return listOfAllResponses.get(code)
+    return listOfAllResponses.get(str(code))

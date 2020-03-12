@@ -1,2 +1,2 @@
-settingsNew.json
+setNew.json
 testFile.csv

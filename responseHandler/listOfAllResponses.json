@@ -10,5 +10,11 @@
         "status" : "Failure",
         "message" : "Expected to only be Numeric",
         "code" : "100"
+    },
+
+    "200" : {
+        "status" : "Failure",
+        "message" : "Could not find settings function in configFunctions.json",
+        "code" : "200"
     }
 }

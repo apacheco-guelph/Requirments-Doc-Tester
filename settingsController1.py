@@ -1,40 +1,32 @@
 from settingsFunctions import *
 import json
 
-class objectify(object):
-    def __init__(self, settings):
-	    self.__dict__ = json.loads(settings)
-
-def loadSettingsFile(filename):
-    settings = {}
-
-    with open(filename) as json_file:
-        settings = json.load(json_file)
-
-    settingsObject = objectify(json.dumps(settings))
-    
-    return settings
-
-
-def readSettingsFile(filename):
-    settings = {}
-
-    with open(filename) as json_file:
-        settings = json.load(json_file)
-
-    settingsObject = objectify(json.dumps(settings))
-    
-    return settings
+errorCode = {
+    "errorCode" : 200
+}
 
 def runSettingsFunction(nameOfSettingsFunction,RequirementsFile,RowToTest):
+    # runs function 'nameOfSettingsFunction' gives RequirementsFile and RowToTest as parmaeters
+    # ie) runSomeFunction(file,row)
     getattr((globals()[nameOfSettingsFunction]),nameOfSettingsFunction)(RequirementsFile,RowToTest)
 
-def getConfigSettings(configFile, settings):
-    return configFile.get(settings).get("functionName")
+def getConfigSettings(configFile, settings):    
+    try:
+        return configFile.get(settings).get("functionName")
+    except:
+        return errorCode
+        
+    
 
 def parseSettingsFile(settingsFile, configFile):
-    arrayOfFunctionNames = []
-    for setting in settingsFile.get('ReqIDSettings'):
-        arrayOfFunctionNames.append(getConfigSettings(configFile,setting))
+    ObjectOfFunctionNames = {}
+    for name in settingsFile:
+        arrayToAdd = []
+        for setting in settingsFile.get(name):
+            arrayToAdd.append(getConfigSettings(configFile,setting))
 
-    return arrayOfFunctionNames
+        
+        #iter(ObjectOfFunctionNames).next()[name] = arrayToAdd
+        ObjectOfFunctionNames[name] = arrayToAdd
+
+    return ObjectOfFunctionNames

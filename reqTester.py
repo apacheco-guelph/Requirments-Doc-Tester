@@ -1,6 +1,7 @@
 import json, csv
 import settingsController1 as config
 import configFunctionsLoader as listOfFunctions
+from responseHandler import *
 
 class requirementsFile:
     def __init__(self, filename, contentList):
@@ -16,6 +17,14 @@ class content:
         self.Dep = Dep
         self.Pri = Pri
         self.Time = Time
+
+def loadSettingsFile(filename):
+    settings = {}
+
+    with open(filename) as json_file:
+        settings = json.load(json_file)
+    
+    return settings
 
 def checkIfFileExists(stringForInput):
     toLoop = True
@@ -84,27 +93,30 @@ def getOrderOfHeaders(reqFile, configObject):
                 headersOrder.append(str(headersConnected))
     return headersOrder
 
+def parseSettingsFile(configObject, functionsObject):
+    arrayFromSettingsController = config.parseSettingsFile(configObject,functionsObject)
+    arrayFromResponseHandler = getattr((globals()["responseHandler"]),'cleanSettingsError')(arrayFromSettingsController)
+    return arrayFromResponseHandler
+
 def main():
     configFilename = getSettingFile()
-    configObject = config.loadSettingsFile(configFilename)
+    configObject = loadSettingsFile(configFilename)
 
     reqFilename = getRequirementsFile()
     reqFile = readCSV(reqFilename)
 
-    functionsObject = config.loadSettingsFile('configFunctions.json')
+    functionsObject = loadSettingsFile('configFunctions.json')
     #checkIt(configObject,functionsObject,reqFile,0)
 
-    headersOrder = getOrderOfHeaders(reqFile,configObject)
-    print(getRowNumberOfHeader(headersOrder,"Time"))
+    #headersOrder = getOrderOfHeaders(reqFile,configObject)
+    #WORKS --> print(getRowNumberOfHeader(headersOrder,"Time"))
     
-    for i in headersOrder:
-        print(i + ",")
 
     #print(config.getConfigSettings(functionsObject,"OnlyNumeric"))
-    arrayOfFunctionNames = config.parseSettingsFile(configObject,functionsObject)
-
-    for func in arrayOfFunctionNames:
-        config.runSettingsFunction(func,reqFile,"ReqID")
+    arrayOfFunctionNames = parseSettingsFile(configObject,functionsObject)
+    print(arrayOfFunctionNames)
+    #for func in arrayOfFunctionNames:
+    #    config.runSettingsFunction(func,reqFile,"ReqID")
 
 
 
