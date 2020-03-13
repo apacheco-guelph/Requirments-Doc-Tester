@@ -1,3 +1,3 @@
 
-def OnlyNumeric(reqFile, catToTest):
+def OnlyNumeric(reqFile, catToTest, settingsObject):
     print("OOF")

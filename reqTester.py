@@ -108,12 +108,21 @@ def main():
     functionsObject = loadSettingsFile('configFunctions.json')
     #checkIt(configObject,functionsObject,reqFile,0)
 
-    #headersOrder = getOrderOfHeaders(reqFile,configObject)
+    headersOrder = getOrderOfHeaders(reqFile,configObject)
     #WORKS --> print(getRowNumberOfHeader(headersOrder,"Time"))
     
 
     #print(config.getConfigSettings(functionsObject,"OnlyNumeric"))
     arrayOfFunctionNames = parseSettingsFile(configObject,functionsObject)
+    
+    print()
+    print("\n-------\nTesting\n-------")
+
+    print("\n------------\nfunctionsObject\n------------")
+    print(functionsObject)
+    print("\n------------\nHeadersOrder\n------------")
+    print(headersOrder)
+    print("\n-----------------\nParsedSettingFile\n-----------------")
     print(arrayOfFunctionNames)
     #for func in arrayOfFunctionNames:
     #    config.runSettingsFunction(func,reqFile,"ReqID")

@@ -10,12 +10,11 @@ def runSettingsFunction(nameOfSettingsFunction,RequirementsFile,RowToTest):
     # ie) runSomeFunction(file,row)
     getattr((globals()[nameOfSettingsFunction]),nameOfSettingsFunction)(RequirementsFile,RowToTest)
 
-def getConfigSettings(configFile, settings):    
+def getConfigSettingsFunctionName(configFile, settings):    
     try:
         return configFile.get(settings).get("functionName")
     except:
         return errorCode
-        
     
 
 def parseSettingsFile(settingsFile, configFile):
@@ -23,7 +22,7 @@ def parseSettingsFile(settingsFile, configFile):
     for name in settingsFile:
         arrayToAdd = []
         for setting in settingsFile.get(name):
-            arrayToAdd.append(getConfigSettings(configFile,setting))
+            arrayToAdd.append(getConfigSettingsFunctionName(configFile,setting))
 
         
         #iter(ObjectOfFunctionNames).next()[name] = arrayToAdd

@@ -1,5 +1,13 @@
 {
     "OnlyNumeric": {
         "functionName":"OnlyNumeric"
+    },
+    "HeadersConnect": {
+        "functionName":"headersConnect",
+        "params" : [
+            "reqFile",
+            "settingsObject"
+        ]
+        
     }
 }

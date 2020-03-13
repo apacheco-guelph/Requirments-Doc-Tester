@@ -1,10 +1,23 @@
 {
-    "GeneralSettings": {
-      "GrammarBotClient": "",
-      "EveryOtherLine": false
-    },
-  
-    "ReqIDSettings": {
-      "OnlyNumeric": true
+  "HeadersSettings" : {
+    "HeadersOrdered": true,
+    "HeadersConnect": {
+      "ReqID" : "ReqID",
+      "Cat" : "Category",
+      "User" : "User",
+      "ReqDes" : "Requirement",
+      "Dep" : "Dependencies",
+      "Pri" : "Priority",
+      "Time" : "TimeEstimate"
     }
+  },
+  
+  "GeneralSettings": {
+    "GrammarBotClient": "",
+    "EveryOtherLine": false
+  },
+
+  "ReqIDSettings": {
+    "OnlyNumeric": true
+  }
 }
