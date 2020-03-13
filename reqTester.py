@@ -1,7 +1,6 @@
 import json, csv
-import settingsController1 as settingsController
-import configFunctionsLoader as listOfFunctions
-from responseHandler import *
+import settingsController as settingsController
+import responseHandler
 
 class requirementsFile:
     def __init__(self, filename, contentList):
@@ -70,6 +69,7 @@ def readCSV(filename):
 
 
 def checkIt(configObject, functionsObject, reqFile, lineNumber):
+    #TODO may need to be removed
     for topLayerSettings in configObject:
         print(topLayerSettings)
         for lowerLayerSettings in configObject.get(topLayerSettings):
@@ -98,6 +98,34 @@ def parseSettingsFile(configObject, functionsObject):
     arrayFromResponseHandler = getattr((globals()["responseHandler"]),'cleanSettingsError')(arrayFromSettingsController)
     return arrayFromResponseHandler
 
+
+def runReqTester(reqFile,configObject,settingsObject,headersOrder):
+    allResponsesObject = {}
+    builtInFunctions = ['HeadersConnect']
+    arrayFromSettingsController = settingsController.parseSettingsFile(settingsObject,configObject)
+    for generalFunc in arrayFromSettingsController:
+        arrayOfResponses = []
+        for func in arrayFromSettingsController.get(generalFunc):
+            if func not in builtInFunctions:
+                funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func,headersOrder)
+                arrayOfResponses.append(settingsController.runSettingsFunction(configObject.get(func).get("functionName"),funcParams))
+
+
+        allResponsesObject[generalFunc] = arrayOfResponses
+
+    return allResponsesObject
+
+def printIndepth(allResponsesObject,reqFile):
+    print("\n---------\nResponses\n---------\n")
+    for lines in range(1,len(reqFile)):
+        print("Line: "+ str(lines))
+        for generalResponses in allResponsesObject:
+            for responses in allResponsesObject[generalResponses]:
+                for singleResponse in responses:
+                    
+                    if singleResponse.get("lineNumber") == lines:
+                        print("\t"+singleResponse.get("from")+"==>"+singleResponse.get("status")+":["+singleResponse.get("received")+"]-"+singleResponse.get("message"))
+
 def main():
     settingsFilename = getSettingFile()
     settingsObject = loadSettingsFile(settingsFilename)
@@ -111,32 +139,17 @@ def main():
     headersOrder = getOrderOfHeaders(reqFile,settingsObject)
     #WORKS --> print(getRowNumberOfHeader(headersOrder,"Time"))
     
-    #Working accepting of responses
-    allResponsesObject = {}
-    builtInFunctions = ['HeadersConnect']
-    arrayFromSettingsController = settingsController.parseSettingsFile(settingsObject,configObject)
-    for generalFunc in arrayFromSettingsController:
-        arrayOfResponses = []
-        print(generalFunc)
-        for func in arrayFromSettingsController.get(generalFunc):
-            if func not in builtInFunctions:
-                funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func,headersOrder)
-                arrayOfResponses.append(settingsController.runSettingsFunction(configObject.get(func).get("functionName"),funcParams))
-
-
-        allResponsesObject[generalFunc] = arrayOfResponses
+    allResponsesObject = runReqTester(reqFile,configObject,settingsObject,headersOrder)
+    
     
     print()
 
     print("\n-------\nTesting\n-------")
 
-    print("\n------------\nfunctionsObject\n------------")
-    print(configObject)
-
     print("\n------------\nResponsesObject\n------------")
     print(allResponsesObject)
     
-    
+    printIndepth(allResponsesObject,reqFile)
 
 
 

@@ -12,6 +12,7 @@
   },
 
   "ReqIDSettings": {
-    "OnlyNumeric": true
+    "OnlyNumeric": true,
+    "increasingCountInteger": true
   }
 }

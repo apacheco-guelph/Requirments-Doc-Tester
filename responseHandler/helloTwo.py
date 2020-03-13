@@ -1,2 +1,0 @@
-def hip():
-    print("hi")

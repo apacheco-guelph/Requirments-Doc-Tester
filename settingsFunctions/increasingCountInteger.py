@@ -1,6 +1,6 @@
 # Configured to take a data list with [reqFile, catToTest, headerPosition]
 import responseHandler
-def OnlyNumeric(dataType):
+def increasingCountInteger(dataType):
 
     #Getting associated datatypes
     reqFile = dataType[0]
@@ -16,10 +16,13 @@ def OnlyNumeric(dataType):
             try:
                 int(row[headerPos]) #checking to see if it is an int
                 #if no error occured it assumes it is a valid int and appends a succes response to the response array
-                responseArray.append(responseHandler.generateResponse('Success','is integer',catToTest,i,str(row[headerPos])))
+                if( i == int(row[headerPos]) ):
+                    responseArray.append(responseHandler.generateResponse('Success','is in correct order','increasingCountInteger',i,str(row[headerPos])))
+                else:
+                    responseArray.append(responseHandler.generateErrorResponse('Failure','is not in correct order','increasingCountInteger',i,i,str(row[headerPos])))
             except:
                 #Because of any possible exception it records a failure and appends to the response array accordingly
-                responseArray.append(responseHandler.generateErrorResponse('Failure','is not integer',catToTest,i,"integer",str(row[headerPos])))
+                responseArray.append(responseHandler.generateErrorResponse('Failure','is not integer','increasingCountInteger',i,"integer",str(row[headerPos])))
         i = i + 1
     
     return responseArray

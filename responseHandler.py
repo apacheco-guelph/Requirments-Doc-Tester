@@ -42,10 +42,21 @@ def getResponseFromCode(code):
     listOfAllResponses = readListOfAllResponses()
     return listOfAllResponses.get(str(code))
 
-def generateResponse(status,message,fromFunction,lineNumber):
+def generateResponse(status,message,fromFunction,lineNumber,received):
     general = {}
     general['status'] = status
     general['message'] = message
     general['from'] = fromFunction
     general['lineNumber'] = lineNumber
+    general['received'] = received
+    return general
+
+def generateErrorResponse(status,message,fromFunction,lineNumber,expected,received):
+    general = {}
+    general['status'] = status
+    general['message'] = message
+    general['from'] = fromFunction
+    general['lineNumber'] = lineNumber
+    general['expected'] = expected
+    general['received'] = received
     return general

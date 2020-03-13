@@ -3,9 +3,16 @@
         "functionName":"OnlyNumeric",
         "params": [
             "reqFile",
-            "settingsObject",
             "catToTest",
-            "headersOrder"
+            "headerPosition"
+        ]
+    },
+    "increasingCountInteger": {
+        "functionName":"increasingCountInteger",
+        "params": [
+            "reqFile",
+            "catToTest",
+            "headerPosition"
         ]
     },
     "HeadersConnect": {

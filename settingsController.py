@@ -1,80 +1,71 @@
+from settingsFunctions import *
 import json
 
-class objectify(object):
-    def __init__(self, settings):
-	    self.__dict__ = json.loads(settings)
+errorCode = {
+    "errorCode" : 200
+}
 
-
-jsonToThrow = {}
-
-def getGeneralSettings(settingsObject):
-    for item in settingsObject.GeneralSettings:
-        print(item)
+def runSettingsFunction(nameOfSettingsFunction,dataTypeArray):
+    # runs function 'nameOfSettingsFunction' gives RequirementsFile and RowToTest as parmaeters
+    # ie) runSomeFunction(file,row)
     
-    print(settingsObject.GeneralSettings.get('EveryOtherLine'))
-    print(settingsObject.HeadersSettings.get('HeadersConnect').get('Pri'))
+    return getattr((globals()[nameOfSettingsFunction]),nameOfSettingsFunction)(dataTypeArray)
 
-def jsonToThrowSettingsError(possibleError):
-    errorCode = -400
-    while errorCode in jsonToThrow:
-        errorCode = errorCode - 1
-
-    jsonToThrow[errorCode] = {
-        "Possible Settings Error" : possibleError
+def getHeaderPosition(headersOrder,catToFind):
+    settingsToCol = { 
+        "ReqIDSettings" : "ReqID" , 
+        "TimeEstimateSettings" : "Time",
+        "PrioritySettings" : "Pri",
+        "CatSettings" : "Cat",
+        "UserSettings" : "User",
+        "DependenciesSettings" : "Dep",
+        "RequirementSettings" : "ReqDes"
     }
+   
+    for i in range(len(headersOrder)):
+        if headersOrder[i] == settingsToCol.get(catToFind):
+            return i
 
-def jsonToThrowExRec(status, expected, recieved):
-    key = len(jsonToThrow)
-    toSendDescr = "Expected: [" + expected + "], Recieved [" + recieved + "]"
-    toSendTitle = ""
+        
+
+
+def configParams(nameOfSettingsFunction,reqFile,configObject,settingsObject,catToTest,headersOrder):
+    configParamsList = []
     
-    if status:
-        toSendTitle = "Success"
-    else:
-        toSendTitle = "Failure"
     
-    jsonToThrow[key] = {
-        toSendTitle : toSendDescr
-    }
-
-
-def isHeadingCorrect(settingsObject, array):
+    for params in configObject.get(catToTest).get("params"):
+        if params == "reqFile":
+            configParamsList.append(reqFile)
+        if params == "configObject":
+            configParamsList.append(configObject)
+        if params == "settingsObject":
+            configParamsList.append(settingsObject)
+        if params == "catToTest":
+            configParamsList.append(nameOfSettingsFunction)
+        if params == "headersOrder":
+            configParamsList.append(headersOrder)
+        if params == "headerPosition":
+            configParamsList.append(getHeaderPosition(headersOrder, nameOfSettingsFunction))
+        
     
-    headingVariables = settingsObject.HeadersSettings.get('HeadersConnect')
-    headingUserFile = settingsObject.HeadersSettings.get('HeadersOrder')
-
-    for headers in headingVariables:
-        if headingVariables.get(headers) not in headingUserFile:
-            jsonToThrowSettingsError("Headers ordered and the connected headers do not matach")
+    return configParamsList
 
 
-    if settingsObject.HeadersSettings.get('HeadersOrdered'):
-
-        for i in range(len(array)):
-            if (headingUserFile[i] == array[i]):
-                jsonToThrowExRec(True, headingUserFile[i], array[i])
-            else:
-                jsonToThrowExRec(False, headingUserFile[i], array[i])
-
-    return jsonToThrow
-
-def isTimeEstimateFloat(settingsObject):
-    return settingsObject.TimeEstimateSettings.get('TimeEstimateFloat')
-
-def loadSettingsFile(filename):
-    settings = {}
-
-    with open(filename) as json_file:
-        settings = json.load(json_file)
-
-    settingsObject = objectify(json.dumps(settings))
-    
-    return settings
-
-def getSettingsFunction(settings, settingsName):
+def getConfigSettingsFunctionName(configFile, settings):    
     try:
-        settingsToReturn = settings.get(settingsName)
-        return settingsToReturn
+        return configFile.get(settings).get("functionName")
     except:
-        return ""
-  
+        return errorCode
+
+def parseSettingsFile(settingsFile, configFile):
+    ObjectOfFunctionNames = {}
+    for name in settingsFile:
+        arrayToAdd = []
+        for setting in settingsFile.get(name):
+            #arrayToAdd.append(getConfigSettingsFunctionName(configFile,setting))
+            arrayToAdd.append(setting)
+        
+        #iter(ObjectOfFunctionNames).next()[name] = arrayToAdd
+        ObjectOfFunctionNames[name] = arrayToAdd
+
+    return ObjectOfFunctionNames
