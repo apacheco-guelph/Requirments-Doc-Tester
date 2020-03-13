@@ -62,10 +62,8 @@ def parseSettingsFile(settingsFile, configFile):
     for name in settingsFile:
         arrayToAdd = []
         for setting in settingsFile.get(name):
-            #arrayToAdd.append(getConfigSettingsFunctionName(configFile,setting))
             arrayToAdd.append(setting)
         
-        #iter(ObjectOfFunctionNames).next()[name] = arrayToAdd
         ObjectOfFunctionNames[name] = arrayToAdd
 
     return ObjectOfFunctionNames

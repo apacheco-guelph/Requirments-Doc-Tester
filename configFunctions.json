@@ -22,5 +22,14 @@
             "settingsObject"
         ]
         
+    },
+    "categoryStrictSort": {
+        "functionName":"categoryStrictSort",
+        "params" : [
+            "reqFile",
+            "settingsObject",
+            "catToTest",
+            "headerPosition"
+        ]
     }
 }

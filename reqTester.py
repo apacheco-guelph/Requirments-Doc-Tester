@@ -102,11 +102,12 @@ def parseSettingsFile(configObject, functionsObject):
 def runReqTester(reqFile,configObject,settingsObject,headersOrder):
     allResponsesObject = {}
     builtInFunctions = ['HeadersConnect']
+    situationalFunctions = ['caseSensitive']
     arrayFromSettingsController = settingsController.parseSettingsFile(settingsObject,configObject)
     for generalFunc in arrayFromSettingsController:
         arrayOfResponses = []
         for func in arrayFromSettingsController.get(generalFunc):
-            if func not in builtInFunctions:
+            if func not in builtInFunctions and func not in situationalFunctions:
                 funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func,headersOrder)
                 arrayOfResponses.append(settingsController.runSettingsFunction(configObject.get(func).get("functionName"),funcParams))
 

@@ -14,5 +14,15 @@
   "ReqIDSettings": {
     "OnlyNumeric": true,
     "increasingCountInteger": true
+  },
+
+  "CatSettings" : {
+    "caseSensitive":true,
+    "categoryStrictSort" : [
+      "must",
+      "should",
+      "could",
+      "wont"
+    ]
   }
 }
