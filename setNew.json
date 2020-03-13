@@ -1,6 +1,5 @@
 {
   "HeadersSettings" : {
-    "HeadersOrdered": true,
     "HeadersConnect": {
       "ReqID" : "ReqID",
       "Cat" : "Category",
@@ -10,11 +9,6 @@
       "Pri" : "Priority",
       "Time" : "TimeEstimate"
     }
-  },
-  
-  "GeneralSettings": {
-    "GrammarBotClient": "",
-    "EveryOtherLine": false
   },
 
   "ReqIDSettings": {

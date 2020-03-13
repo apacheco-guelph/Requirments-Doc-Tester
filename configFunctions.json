@@ -1,6 +1,10 @@
 {
     "OnlyNumeric": {
-        "functionName":"OnlyNumeric"
+        "functionName":"OnlyNumeric",
+        "params": [
+            "reqFile",
+            "catToTest"
+        ]
     },
     "HeadersConnect": {
         "functionName":"headersConnect",

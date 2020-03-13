@@ -1,5 +1,5 @@
 import json, csv
-import settingsController1 as config
+import settingsController1 as settingsController
 import configFunctionsLoader as listOfFunctions
 from responseHandler import *
 
@@ -94,38 +94,49 @@ def getOrderOfHeaders(reqFile, configObject):
     return headersOrder
 
 def parseSettingsFile(configObject, functionsObject):
-    arrayFromSettingsController = config.parseSettingsFile(configObject,functionsObject)
+    arrayFromSettingsController = settingsController.parseSettingsFile(configObject,functionsObject)
     arrayFromResponseHandler = getattr((globals()["responseHandler"]),'cleanSettingsError')(arrayFromSettingsController)
     return arrayFromResponseHandler
 
 def main():
-    configFilename = getSettingFile()
-    configObject = loadSettingsFile(configFilename)
+    settingsFilename = getSettingFile()
+    settingsObject = loadSettingsFile(settingsFilename)
 
     reqFilename = getRequirementsFile()
     reqFile = readCSV(reqFilename)
 
-    functionsObject = loadSettingsFile('configFunctions.json')
+    configObject = loadSettingsFile('configFunctions.json')
     #checkIt(configObject,functionsObject,reqFile,0)
 
-    headersOrder = getOrderOfHeaders(reqFile,configObject)
+    #headersOrder = getOrderOfHeaders(reqFile,settingsObject)
     #WORKS --> print(getRowNumberOfHeader(headersOrder,"Time"))
     
+    #Working accepting of responses
+    allResponsesObject = {}
+    builtInFunctions = ['HeadersConnect']
+    arrayFromSettingsController = settingsController.parseSettingsFile(settingsObject,configObject)
+    for generalFunc in arrayFromSettingsController:
+        arrayOfResponses = []
+         
+        for func in arrayFromSettingsController.get(generalFunc):
+            if func not in builtInFunctions:
+                funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func)
+                arrayOfResponses.append(settingsController.runSettingsFunction(configObject.get(func).get("functionName"),funcParams))
 
-    #print(config.getConfigSettings(functionsObject,"OnlyNumeric"))
-    arrayOfFunctionNames = parseSettingsFile(configObject,functionsObject)
+
+        allResponsesObject[generalFunc] = arrayOfResponses
     
     print()
+
     print("\n-------\nTesting\n-------")
 
     print("\n------------\nfunctionsObject\n------------")
-    print(functionsObject)
-    print("\n------------\nHeadersOrder\n------------")
-    print(headersOrder)
-    print("\n-----------------\nParsedSettingFile\n-----------------")
-    print(arrayOfFunctionNames)
-    #for func in arrayOfFunctionNames:
-    #    config.runSettingsFunction(func,reqFile,"ReqID")
+    print(configObject)
+
+    print("\n------------\nResponsesObject\n------------")
+    print(allResponsesObject)
+    
+    
 
 
 
