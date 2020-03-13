@@ -1,5 +1,12 @@
 import json
 
+generalResponse = {
+    "status" : "",
+    "message" : "" ,
+    "from" : "",
+    "lineNumber" : ""
+}
+
 def cleanSettingsError(arrayOfSettings):
     generalToUpdate = {}
     
@@ -34,3 +41,11 @@ def readListOfAllResponses():
 def getResponseFromCode(code):
     listOfAllResponses = readListOfAllResponses()
     return listOfAllResponses.get(str(code))
+
+def generateResponse(status,message,fromFunction,lineNumber):
+    general = {}
+    general['status'] = status
+    general['message'] = message
+    general['from'] = fromFunction
+    general['lineNumber'] = lineNumber
+    return general

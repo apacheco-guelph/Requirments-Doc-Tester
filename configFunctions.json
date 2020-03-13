@@ -3,7 +3,9 @@
         "functionName":"OnlyNumeric",
         "params": [
             "reqFile",
-            "catToTest"
+            "settingsObject",
+            "catToTest",
+            "headersOrder"
         ]
     },
     "HeadersConnect": {

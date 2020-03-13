@@ -11,8 +11,12 @@ def runSettingsFunction(nameOfSettingsFunction,dataTypeArray):
     
     return getattr((globals()[nameOfSettingsFunction]),nameOfSettingsFunction)(dataTypeArray)
 
-def configParams(nameOfSettingsFunction,reqFile,configObject,settingsObject,catToTest):
+def configParams(nameOfSettingsFunction,reqFile,configObject,settingsObject,catToTest,headersOrder):
     configParamsList = []
+
+    if nameOfSettingsFunction == 'ReqIDSettings':
+        nameOfSettingsFunction = 'ReqID'
+
     for params in configObject.get(catToTest).get("params"):
         if params == "reqFile":
             configParamsList.append(reqFile)
@@ -21,9 +25,10 @@ def configParams(nameOfSettingsFunction,reqFile,configObject,settingsObject,catT
         if params == "settingsObject":
             configParamsList.append(settingsObject)
         if params == "catToTest":
-            configParamsList.append(catToTest)
-        if params == "nameOfFunction":
             configParamsList.append(nameOfSettingsFunction)
+        if params == "headersOrder":
+            configParamsList.append(headersOrder)
+        
     
     return configParamsList
 

@@ -108,7 +108,7 @@ def main():
     configObject = loadSettingsFile('configFunctions.json')
     #checkIt(configObject,functionsObject,reqFile,0)
 
-    #headersOrder = getOrderOfHeaders(reqFile,settingsObject)
+    headersOrder = getOrderOfHeaders(reqFile,settingsObject)
     #WORKS --> print(getRowNumberOfHeader(headersOrder,"Time"))
     
     #Working accepting of responses
@@ -117,10 +117,10 @@ def main():
     arrayFromSettingsController = settingsController.parseSettingsFile(settingsObject,configObject)
     for generalFunc in arrayFromSettingsController:
         arrayOfResponses = []
-         
+        print(generalFunc)
         for func in arrayFromSettingsController.get(generalFunc):
             if func not in builtInFunctions:
-                funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func)
+                funcParams = settingsController.configParams(generalFunc,reqFile,configObject,settingsObject,func,headersOrder)
                 arrayOfResponses.append(settingsController.runSettingsFunction(configObject.get(func).get("functionName"),funcParams))
 
 
